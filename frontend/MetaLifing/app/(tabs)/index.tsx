@@ -1,70 +1,68 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import Header from "@/components/Header"
+import Separator from "@/components/Separator"
+import Subheading from "@/components/Subheading"
+import TitledNumberBlock from "@/components/TitledNumberBlock"
+import { LayoutStyles } from "@/styles/layout"
+import { StyleSheet, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+    <View style={LayoutStyles.mainView}>
+      <SafeAreaView>
+        <Header>Home</Header>
+        <View style={styles.summary}>
+          <Subheading>Summary</Subheading>
+          <View style={styles.summaryRow}>
+            <TitledNumberBlock
+              number={165}
+              name={"Completed"}
+              color={"#90CB37"}
+              type={"square"}
+            />
+            <TitledNumberBlock
+              number={55}
+              name={"In Progress"}
+              color={"#E68D3C"}
+              type={"square"}
+            />
+          </View>
+          <View>
+            <Separator margin={15} />
+          </View>
+          <View style={styles.inTotal}>
+            <TitledNumberBlock
+              number={2132131241249}
+              name={"Earned in total"}
+              color={"#3CC5E6"}
+              type={"long"}
+            />
+            <TitledNumberBlock
+              number={3213124124}
+              name={"Spent in total"}
+              color={"#855691"}
+              type={"long"}
+            />
+          </View>
+        </View>
+      </SafeAreaView>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  summary: {
+    display: "flex",
+    marginTop: 25,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  summaryRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  inTotal: {
+    display: "flex",
+    gap: 15,
   },
-});
+})
