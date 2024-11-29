@@ -28,7 +28,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework1",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -38,7 +38,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework2",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -48,7 +48,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework3",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -58,7 +58,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework4",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -68,7 +68,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework5",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -78,7 +78,7 @@ export default function TaskList() {
       tagColor: Colors.universal.ui.diamond,
     },
     {
-      id: "do_homework",
+      id: "do_homework6",
       label: "Do homework",
       reward: 99,
       date: "18-11-2024",
@@ -94,7 +94,11 @@ export default function TaskList() {
       data={tasks}
       style={styles.taskList}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
-      ListFooterComponent={() => <View style={styles.separator} />}
+      ListFooterComponent={() => (
+        <View style={styles.footer}>
+          <Text>Hello</Text>
+        </View>
+      )}
       renderItem={({ item }) => (
         <TaskItem
           id={item.id}
@@ -112,6 +116,7 @@ export default function TaskList() {
 }
 
 const styles = StyleSheet.create({
-  taskList: {},
+  taskList: { height: "80%" },
   separator: { height: 15 },
+  footer: { height: 15 },
 })

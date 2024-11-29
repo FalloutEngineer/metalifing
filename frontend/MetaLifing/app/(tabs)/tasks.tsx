@@ -1,7 +1,7 @@
 import FilterBar from "@/components/filters/FilterBar"
 import Header from "@/components/Header"
+import BottomTabWrapper from "@/components/tabs/BottomTabWrapper"
 import TaskList from "@/components/tasklist/TaskList"
-import { LayoutStyles } from "@/styles/layout"
 import React from "react"
 import { View, Text, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -13,7 +13,9 @@ export default function Tasks() {
         <Header>Tasks</Header>
         <View style={styles.filterContainer}>
           <FilterBar />
-          <TaskList />
+          <BottomTabWrapper>
+            <TaskList />
+          </BottomTabWrapper>
         </View>
       </SafeAreaView>
     </View>
@@ -22,6 +24,6 @@ export default function Tasks() {
 
 const styles = StyleSheet.create({
   filterContainer: {
-    paddingBottom: 355,
+    height: "100%",
   },
 })
