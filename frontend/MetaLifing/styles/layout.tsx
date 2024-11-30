@@ -9,6 +9,7 @@ export const LayoutStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    paddingHorizontal: 15,
   },
   safeAreaView: {},
 })

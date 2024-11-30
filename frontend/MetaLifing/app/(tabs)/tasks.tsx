@@ -11,10 +11,10 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function Tasks() {
   return (
-    <View style={LayoutStyles.mainView}>
+    <View>
       <SafeAreaView>
         <Header>Tasks</Header>
-        <View style={styles.filterContainer}>
+        <View style={[LayoutStyles.mainView, styles.filterContainer]}>
           <FilterBar />
           <BottomTabWrapper>
             <TaskList />

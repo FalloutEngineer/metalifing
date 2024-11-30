@@ -6,12 +6,14 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function index() {
   return (
-    <View style={LayoutStyles.mainView}>
+    <View>
       <SafeAreaView>
         <Header isReturnButtonActive={true}>
           <Text>Create task</Text>
         </Header>
-        <Text>index1</Text>
+        <View style={LayoutStyles.mainView}>
+          <Text>index1</Text>
+        </View>
       </SafeAreaView>
     </View>
   )

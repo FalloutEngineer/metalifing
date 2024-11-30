@@ -4,6 +4,7 @@ import Heading from "./Heading"
 import Coins from "./Coins"
 import { LayoutStyles } from "@/styles/layout"
 import { useRouter } from "expo-router"
+import { useThemeColor } from "@/hooks/useThemeColor"
 
 export default function Header({
   children,
@@ -21,8 +22,11 @@ export default function Header({
   })
 
   const router = useRouter()
+
+  const bgColor = useThemeColor({}, "background")
+
   return (
-    <View style={LayoutStyles.header}>
+    <View style={[LayoutStyles.header, { backgroundColor: bgColor }]}>
       {isReturnButtonActive && (
         <Pressable
           onPress={() => {

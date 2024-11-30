@@ -8,10 +8,10 @@ import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function HomeScreen() {
   return (
-    <View style={LayoutStyles.mainView}>
+    <View>
       <SafeAreaView>
         <Header>Home</Header>
-        <View style={styles.summary}>
+        <View style={[LayoutStyles.mainView, styles.summary]}>
           <Subheading>Summary</Subheading>
           <View style={styles.summaryRow}>
             <TitledNumberBlock
