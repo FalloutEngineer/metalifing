@@ -118,7 +118,6 @@ export default function TaskItem(props: TaskProps) {
 
 const styles = StyleSheet.create({
   body: {
-    marginHorizontal: 15,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

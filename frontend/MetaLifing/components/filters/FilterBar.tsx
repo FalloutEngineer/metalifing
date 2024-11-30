@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
     overflow: "scroll",
     paddingVertical: 5,
     maxWidth: Dimensions.get("window").width - 15,
-    marginLeft: 15,
     height: "100%",
     maxHeight: 60,
   },
