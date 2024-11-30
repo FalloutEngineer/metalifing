@@ -10,9 +10,11 @@ import { Ionicons } from "@expo/vector-icons"
 export default function Header({
   children,
   isReturnButtonActive,
+  fontSize = 26,
 }: {
   children: React.ReactNode
   isReturnButtonActive?: boolean
+  fontSize?: number
 }) {
   const [coins, setCoins] = useState(999999998)
 
@@ -64,7 +66,7 @@ export default function Header({
         ) : (
           <View style={styles.returnButton} />
         )}
-        <Heading fontSize={26}>{children}</Heading>
+        <Heading fontSize={fontSize}>{children}</Heading>
       </View>
 
       <Coins coins={coins} />
