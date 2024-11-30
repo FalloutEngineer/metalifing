@@ -1,12 +1,13 @@
 import { useThemeColor } from "@/hooks/useThemeColor"
+import { Link } from "expo-router"
 import React from "react"
-import { Pressable, Text, StyleSheet, useColorScheme } from "react-native"
+import { Pressable, Text, StyleSheet } from "react-native"
 
-export default function Fab({
-  onPress,
+export default function RedirectFab({
+  href,
   title,
 }: {
-  onPress: Function
+  href: string | object
   title: string
 }) {
   const color = useThemeColor({}, "violet")
@@ -35,13 +36,8 @@ export default function Fab({
     },
   })
   return (
-    <Pressable
-      style={styles.container}
-      onPress={() => {
-        onPress()
-      }}
-    >
+    <Link style={styles.container} href={href}>
       <Text style={styles.title}>{title}</Text>
-    </Pressable>
+    </Link>
   )
 }
