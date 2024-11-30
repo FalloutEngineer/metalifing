@@ -94,11 +94,7 @@ export default function TaskList() {
       data={tasks}
       style={styles.taskList}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
-      ListFooterComponent={() => (
-        <View style={styles.footer}>
-          <Text>Hello</Text>
-        </View>
-      )}
+      ListFooterComponent={() => <View style={styles.footer} />}
       renderItem={({ item }) => (
         <TaskItem
           id={item.id}
@@ -118,5 +114,5 @@ export default function TaskList() {
 const styles = StyleSheet.create({
   taskList: { height: "80%" },
   separator: { height: 15 },
-  footer: { height: 15 },
+  footer: { height: 30 },
 })
