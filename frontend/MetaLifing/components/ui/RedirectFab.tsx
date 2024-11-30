@@ -1,5 +1,5 @@
 import { useThemeColor } from "@/hooks/useThemeColor"
-import { Link } from "expo-router"
+import { Href, Link } from "expo-router"
 import React from "react"
 import { Pressable, Text, StyleSheet } from "react-native"
 
@@ -7,7 +7,7 @@ export default function RedirectFab({
   href,
   title,
 }: {
-  href: string | object
+  href: Href
   title: string
 }) {
   const color = useThemeColor({}, "violet")
