@@ -32,10 +32,6 @@ export default function RootLayout() {
     return null
   }
 
-  const bgColor = useThemeColor({}, "background")
-
-  const [statusBarState, setStatusBarSate] = useState<string>("default")
-
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
