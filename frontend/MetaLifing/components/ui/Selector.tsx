@@ -9,7 +9,7 @@ import {
   TextStyle,
 } from "react-native"
 
-type OnChangeCallback = (number: number) => never
+type OnChangeCallback = (number: number) => void
 
 export default function Selector({
   items,

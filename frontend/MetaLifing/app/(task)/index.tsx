@@ -37,6 +37,9 @@ export default function index() {
             </View>
             <View style={styles.inputGroup}>
               <Selector
+                onChange={(test: number) => {
+                  console.log(test)
+                }}
                 items={[
                   <View
                     style={{
