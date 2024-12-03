@@ -15,6 +15,8 @@ export const Colors = {
       diamond: "#3CC5E6",
       orange: "#E68D3C",
       green: "#90CB37",
+      red: "red",
+      gray: "gray",
     },
     difficulties: {
       easy: "#90CB37",

@@ -4,6 +4,7 @@ import Tag from "@/components/ui/Tag"
 import { TagType } from "@/components/ui/TagStyles"
 import { Colors } from "@/constants/Colors"
 import { LayoutStyles } from "@/styles/layout"
+import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { View, Text, StyleSheet, TextInput } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -66,6 +67,77 @@ export default function index() {
                 ]}
               />
             </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputHeading}>Priority</Text>
+              <Selector
+                itemStyles={{ borderRadius: 100 }}
+                items={[
+                  <Tag
+                    text={"Low"}
+                    color={Colors.universal.priorities.low}
+                    type={TagType.SOLID}
+                  />,
+                  <Tag
+                    text={"Medium"}
+                    color={Colors.universal.priorities.medium}
+                    type={TagType.SOLID}
+                  />,
+                  <Tag
+                    text={"High"}
+                    color={Colors.universal.priorities.high}
+                    type={TagType.SOLID}
+                  />,
+                ]}
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputHeading}>Tag</Text>
+              <Selector
+                itemStyles={{ borderRadius: 100 }}
+                items={[
+                  <Tag
+                    text={"Learning"}
+                    color={Colors.universal.priorities.low}
+                    type={TagType.OUTLINE}
+                  />,
+                  <Tag
+                    text={"Chores"}
+                    color={Colors.universal.ui.gray}
+                    type={TagType.OUTLINE}
+                  />,
+                  <Tag
+                    text={"Work"}
+                    color={Colors.universal.ui.orange}
+                    type={TagType.OUTLINE}
+                  />,
+                  <Tag
+                    text={"Health"}
+                    color={Colors.universal.ui.red}
+                    type={TagType.OUTLINE}
+                  />,
+                ]}
+              />
+            </View>
+            <View style={styles.inputGroup}>
+              <Text style={styles.inputHeading}>Reward</Text>
+              <View style={styles.inputLineGroup}>
+                <TextInput
+                  keyboardType="numeric"
+                  editable
+                  maxLength={3}
+                  placeholder={"0"}
+                  style={[styles.input, styles.numberInput]}
+                />
+                <View style={styles.diamondIconWrapper}>
+                  <Ionicons
+                    size={18}
+                    color={Colors.universal.ui.diamond}
+                    style={[{ marginBottom: -3 }]}
+                    name={"diamond-outline"}
+                  />
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -75,6 +147,21 @@ export default function index() {
 
 const styles = StyleSheet.create({
   inputGroup: {},
+  inputLineGroup: {
+    display: "flex",
+    flexDirection: "row",
+    gap: 10,
+  },
+  numberInput: {
+    width: 50,
+    textAlign: "center",
+  },
+  diamondIconWrapper: {
+    display: "flex",
+    height: "auto",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   input: {
     backgroundColor: "white",
     borderRadius: 7,

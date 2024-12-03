@@ -15,7 +15,7 @@ export default function TaskList() {
       difficulty: Difficulties.EASY,
       priority: Priorities.LOW,
       tag: "Chores",
-      tagColor: Colors.universal.ui.orange,
+      tagColor: Colors.universal.ui.gray,
     },
     {
       id: "do_homework",
