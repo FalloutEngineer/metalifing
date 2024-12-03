@@ -5,11 +5,17 @@ import { TagType } from "@/components/ui/TagStyles"
 import { Colors } from "@/constants/Colors"
 import { LayoutStyles } from "@/styles/layout"
 import { Ionicons } from "@expo/vector-icons"
-import React from "react"
+import React, { useState } from "react"
 import { View, Text, StyleSheet, TextInput } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
+import DateTimePicker from "@react-native-community/datetimepicker"
+
 export default function index() {
+  const [taskDate, setTaskDate] = useState<Date>(new Date())
+
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
+
   return (
     <View>
       <SafeAreaView>
@@ -140,6 +146,16 @@ export default function index() {
             </View>
           </View>
         </View>
+        {showDatePicker && (
+          <DateTimePicker
+            value={taskDate}
+            mode={"date"}
+            is24Hour={true}
+            onChange={() => {}}
+            accentColor="black"
+            textColor="black"
+          />
+        )}
       </SafeAreaView>
     </View>
   )

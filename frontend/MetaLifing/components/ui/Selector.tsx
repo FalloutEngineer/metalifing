@@ -2,8 +2,6 @@ import React, { useState } from "react"
 import { View, Pressable, StyleSheet } from "react-native"
 import { ScrollView } from "react-native"
 
-import DateTimePicker from "@react-native-community/datetimepicker"
-
 type OnChangeCallback = (number: number) => void
 
 export default function Selector({
@@ -21,8 +19,6 @@ export default function Selector({
   listStyles?: Object
   itemStyles?: Object
 }) {
-  const [taskDate, setTaskDate] = useState(new Date())
-
   const itemsLength = items.length
 
   const listStylesArray: Object[] = [styles.list]
@@ -72,14 +68,6 @@ export default function Selector({
           })}
         </View>
       )}
-      <DateTimePicker
-        value={taskDate}
-        mode={"date"}
-        is24Hour={true}
-        onChange={() => {}}
-        accentColor="black"
-        textColor="black"
-      />
     </ScrollView>
   )
 }
