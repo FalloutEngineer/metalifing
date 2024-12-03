@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { View, Pressable, StyleSheet } from "react-native"
+import { ScrollView } from "react-native"
 
 type OnChangeCallback = (number: number) => void
 
@@ -9,12 +10,14 @@ export default function Selector({
   initSelection,
   selectorStyles,
   listStyles,
+  itemStyles,
 }: {
   items: React.ReactNode[]
   onChange?: OnChangeCallback
   initSelection?: number
   selectorStyles?: Object
   listStyles?: Object
+  itemStyles?: Object
 }) {
   const itemsLength = items.length
 
@@ -29,12 +32,18 @@ export default function Selector({
     selectorStylesArray.push(selectorStyles)
   }
 
+  const itemStylesArray: Object[] = [itemStyles]
+
+  if (itemStyles) {
+    itemStylesArray.push(itemStyles)
+  }
+
   const [selected, setSelected] = useState<number>(
     initSelection && initSelection < items.length ? initSelection : 0
   )
 
   return (
-    <View style={selectorStylesArray}>
+    <ScrollView horizontal={true} style={selectorStylesArray}>
       {itemsLength > 0 && (
         <View style={listStylesArray}>
           {items.map((item, index) => {
@@ -46,7 +55,7 @@ export default function Selector({
                   setSelected(index)
                   onChange && onChange(index)
                 }}
-                style={itemStyles}
+                style={itemStylesArray}
                 key={index}
               >
                 {item}
@@ -55,7 +64,7 @@ export default function Selector({
           })}
         </View>
       )}
-    </View>
+    </ScrollView>
   )
 }
 const styles = StyleSheet.create({

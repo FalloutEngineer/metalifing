@@ -1,5 +1,8 @@
 import Header from "@/components/Header"
 import Selector from "@/components/ui/Selector"
+import Tag from "@/components/ui/Tag"
+import { TagType } from "@/components/ui/TagStyles"
+import { Colors } from "@/constants/Colors"
 import { LayoutStyles } from "@/styles/layout"
 import React from "react"
 import { View, Text, StyleSheet, TextInput } from "react-native"
@@ -36,24 +39,29 @@ export default function index() {
               />
             </View>
             <View style={styles.inputGroup}>
+              <Text style={styles.inputHeading}>Difficulty</Text>
               <Selector
-                onChange={(test: number) => {
-                  console.log(test)
-                }}
                 items={[
-                  <View
-                    style={{
-                      backgroundColor: "green",
-                      height: 50,
-                      width: 50,
-                    }}
-                  ></View>,
-                  <View
-                    style={{ backgroundColor: "yellow", height: 50, width: 50 }}
-                  ></View>,
-                  <View
-                    style={{ backgroundColor: "red", height: 50, width: 50 }}
-                  ></View>,
+                  <Tag
+                    text={"Easy"}
+                    color={Colors.universal.difficulties.easy}
+                    type={TagType.SOLID}
+                  />,
+                  <Tag
+                    text={"Normal"}
+                    color={Colors.universal.difficulties.normal}
+                    type={TagType.SOLID}
+                  />,
+                  <Tag
+                    text={"Hard"}
+                    color={Colors.universal.difficulties.hard}
+                    type={TagType.SOLID}
+                  />,
+                  <Tag
+                    text={"Nightmare"}
+                    color={Colors.universal.difficulties.nightmare}
+                    type={TagType.SOLID}
+                  />,
                 ]}
               />
             </View>
