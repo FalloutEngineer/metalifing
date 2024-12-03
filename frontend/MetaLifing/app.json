@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.MetaLifing"
     },
     "web": {
       "bundler": "metro",
@@ -35,17 +36,20 @@
           "android": {
             "datePicker": {
               "colorAccent": {
-                "light": "#FF5722"
+                "light": "#855691"
               },
               "textColorPrimary": {
-                "light": "#FF5722"
+                "light": "#855691"
               }
             },
             "timePicker": {
-              "background": { "light": "#FF5722", "dark": "#383838" },
+              "background": {
+                "light": "#855691",
+                "dark": "#855691"
+              },
               "numbersBackgroundColor": {
-                "light": "#FF5722",
-                "dark": "#383838"
+                "light": "#855691",
+                "dark": "#855691"
               }
             }
           }
