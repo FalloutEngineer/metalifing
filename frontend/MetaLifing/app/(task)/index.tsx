@@ -41,7 +41,7 @@ export default function index() {
             <View style={styles.inputGroup}>
               <Text style={styles.inputHeading}>Difficulty</Text>
               <Selector
-                // itemStyles={{ borderRadius: 100 }}
+                itemStyles={{ borderRadius: 100 }}
                 items={[
                   <Tag
                     text={"Easy"}

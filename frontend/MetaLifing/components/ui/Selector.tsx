@@ -47,14 +47,15 @@ export default function Selector({
       {itemsLength > 0 && (
         <View style={listStylesArray}>
           {items.map((item, index) => {
-            if (index === selected) itemStylesArray.push(styles.selected)
+            const currentItemStyles = [...itemStylesArray]
+            if (index === selected) currentItemStyles.push(styles.selected)
             return (
               <Pressable
                 onPress={() => {
                   setSelected(index)
                   onChange && onChange(index)
                 }}
-                style={itemStylesArray}
+                style={currentItemStyles}
                 key={index}
               >
                 {item}
