@@ -1,13 +1,5 @@
 import React, { useState } from "react"
-import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  ViewStyle,
-  ImageStyle,
-  TextStyle,
-} from "react-native"
+import { View, Pressable, StyleSheet } from "react-native"
 
 type OnChangeCallback = (number: number) => void
 
