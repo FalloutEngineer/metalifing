@@ -32,7 +32,7 @@ export default function Selector({
     selectorStylesArray.push(selectorStyles)
   }
 
-  const itemStylesArray: Object[] = [itemStyles]
+  const itemStylesArray: Object[] = [styles.item]
 
   if (itemStyles) {
     itemStylesArray.push(itemStyles)
@@ -47,8 +47,7 @@ export default function Selector({
       {itemsLength > 0 && (
         <View style={listStylesArray}>
           {items.map((item, index) => {
-            const itemStyles: any[] = [styles.item]
-            if (index === selected) itemStyles.push(styles.selected)
+            if (index === selected) itemStylesArray.push(styles.selected)
             return (
               <Pressable
                 onPress={() => {
