@@ -17,6 +17,7 @@ export const Colors = {
       green: "#90CB37",
       red: "red",
       gray: "gray",
+      violet: "violet",
     },
     difficulties: {
       easy: "#90CB37",
