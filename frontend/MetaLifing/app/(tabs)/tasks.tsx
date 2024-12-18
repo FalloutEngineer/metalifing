@@ -21,7 +21,7 @@ export default function Tasks() {
           </BottomTabWrapper>
         </View>
       </SafeAreaView>
-      <RedirectFab title={"+"} href={"/(task)"} />
+      <RedirectFab title={"+"} href={"/(create-task)"} />
     </View>
   )
 }

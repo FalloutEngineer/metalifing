@@ -6,6 +6,8 @@ import { Colors } from "@/constants/Colors"
 import { TagType } from "../ui/TagStyles"
 import Ionicons from "@expo/vector-icons/Ionicons"
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
+import Done from "./Done"
+import Edit from "./Edit"
 
 export default function TaskItem(props: TaskProps) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
@@ -81,6 +83,21 @@ export default function TaskItem(props: TaskProps) {
   return (
     <View style={styles.body}>
       <View style={styles.left}>
+        {props.reward > 0 && (
+          <View style={styles.rewardContainer}>
+            <Text style={styles.rewardText}>{props.reward}</Text>
+            <Ionicons
+              size={18}
+              style={[
+                {
+                  marginBottom: -3,
+                },
+              ]}
+              color={Colors.universal.ui.diamond}
+              name={"diamond-outline"}
+            />
+          </View>
+        )}
         <Text style={styles.heading}>{props.label}</Text>
         <View style={styles.tagsContainer}>
           <Tag text={priority} color={priorityColor} type={TagType.SOLID} />
@@ -95,23 +112,18 @@ export default function TaskItem(props: TaskProps) {
           <Text style={styles.date}>{props.date}</Text>
         </View>
       </View>
-      {props.reward > 0 && (
-        <View style={[styles.right, { backgroundColor: difficultyColor }]}>
-          <View style={styles.rewardContainer}>
-            <Text style={styles.rewardText}>{props.reward}</Text>
-            <Ionicons
-              size={18}
-              style={[
-                {
-                  marginBottom: -3,
-                },
-              ]}
-              color={Colors.universal.ui.diamond}
-              name={"diamond-outline"}
-            />
-          </View>
-        </View>
-      )}
+      <View style={[styles.right, { backgroundColor: difficultyColor }]}>
+        <Done
+          callback={() => {
+            console.log("done", props.label)
+          }}
+        />
+        <Edit
+          callback={() => {
+            console.log("edit", props.label)
+          }}
+        />
+      </View>
     </View>
   )
 }
@@ -170,12 +182,12 @@ const styles = StyleSheet.create({
   rewardContainer: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     flexDirection: "row",
     gap: 8,
   },
   rewardText: {
-    color: "white",
+    color: "black",
     fontWeight: "bold",
     fontSize: 24,
     maxWidth: 50,
