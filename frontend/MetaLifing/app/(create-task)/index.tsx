@@ -28,6 +28,7 @@ import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 export default function index() {
   function createTask() {
     //TODO:
+    console.log("task created")
   }
 
   return (
