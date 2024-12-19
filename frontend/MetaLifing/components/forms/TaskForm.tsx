@@ -22,7 +22,9 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker"
 
 export default function TaskForm(props: TaskFormProps) {
-  const [taskDate, setTaskDate] = useState<Date>(props.dateAndTime)
+  const [taskDate, setTaskDate] = useState<Date>(
+    props.dateAndTime || new Date()
+  )
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
   const [datePickerMode, setDatePickerMode] = useState<"time" | "date">("date")
@@ -195,7 +197,7 @@ export default function TaskForm(props: TaskFormProps) {
               onPress={() => {
                 props.buttonCallback
               }}
-              title="Create"
+              title={props.buttonName}
               color={Colors[colorScheme ?? "light"].violet}
               accessibilityLabel="Submit task creation"
             />

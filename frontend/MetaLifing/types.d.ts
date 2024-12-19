@@ -12,7 +12,7 @@ type TaskProps = {
   isDone: boolean
 }
 
-type TaskFormProps = TaskProps & {
+type TaskFormProps = Partial<TaskProps> & {
   buttonName: string
   buttonCallback: Function
 }

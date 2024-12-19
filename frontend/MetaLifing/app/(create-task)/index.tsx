@@ -22,6 +22,8 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker"
 import DatePicker from "@/components/ui/DatePicker"
 import TimePicker from "@/components/ui/TimePicker"
+import TaskForm from "@/components/forms/TaskForm"
+import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 
 export default function index() {
   function createTask() {
@@ -33,6 +35,7 @@ export default function index() {
       <Header isReturnButtonActive={true} fontSize={26}>
         <Text>Create task</Text>
       </Header>
+      <TaskForm buttonName={"Create"} buttonCallback={createTask}></TaskForm>
     </SafeAreaView>
   )
 }
@@ -40,55 +43,5 @@ export default function index() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-  },
-  scrollableViewContent: {
-    paddingBottom: 15,
-  },
-  inputGroup: {},
-  scrollableView: {},
-  inputLineGroup: {
-    display: "flex",
-    flexDirection: "row",
-    gap: 10,
-  },
-  numberInput: {
-    width: 75,
-    textAlign: "center",
-    fontSize: 24,
-  },
-  diamondIconWrapper: {
-    display: "flex",
-    height: "auto",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  input: {
-    backgroundColor: "white",
-    borderRadius: 7,
-    padding: 7,
-  },
-  inputHeading: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 15,
-  },
-  inputsWrapper: {
-    display: "flex",
-    gap: 15,
-    marginTop: 15,
-  },
-  submitWrapper: {
-    width: "50%",
-    marginTop: 25,
-  },
-  dateGroup: {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    alignSelf: "flex-start",
-
-    gap: 15,
   },
 })
