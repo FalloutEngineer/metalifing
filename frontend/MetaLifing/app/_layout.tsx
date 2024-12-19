@@ -34,11 +34,16 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack initialRouteName="(tabs)">
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="(create-task)" options={{ headerShown: false }} />
+        <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>
   )
+}
+
+export const unstable_settings = {
+  initialRouteName: "(tabs)/index",
 }

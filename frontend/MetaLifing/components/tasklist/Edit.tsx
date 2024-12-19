@@ -6,7 +6,7 @@ export default function Edit(props: { callback: Function }) {
     <PressableIcon
       callback={props.callback}
       icon={"create"}
-      size={48}
+      size={32}
       color={"white"}
     />
   )

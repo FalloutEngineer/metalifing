@@ -8,6 +8,7 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 import Done from "./Done"
 import Edit from "./Edit"
+import { Link, router } from "expo-router"
 
 export default function TaskItem(props: TaskProps) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
@@ -115,12 +116,13 @@ export default function TaskItem(props: TaskProps) {
       <View style={[styles.right, { backgroundColor: difficultyColor }]}>
         <Done
           callback={() => {
+            //TODO:
             console.log("done", props.label)
           }}
         />
         <Edit
           callback={() => {
-            console.log("edit", props.label)
+            router.push(`/(edit-task)/${props.id}`)
           }}
         />
       </View>
@@ -177,6 +179,8 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "row",
+    gap: 15,
     width: "30%",
   },
   rewardContainer: {

@@ -6,7 +6,7 @@ export default function Done(props: { callback: Function }) {
     <PressableIcon
       callback={props.callback}
       icon={"checkmark"}
-      size={48}
+      size={32}
       color={"white"}
     />
   )
