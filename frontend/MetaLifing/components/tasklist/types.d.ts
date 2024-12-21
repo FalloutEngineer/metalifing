@@ -1,6 +1,6 @@
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 
-export default interface TaskProps {
+export default interface TaskFields {
   id: string
   label: string
   reward: number

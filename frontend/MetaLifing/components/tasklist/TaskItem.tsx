@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Text, StyleSheet, Platform } from "react-native"
-import TaskProps from "./types"
+import TaskFields from "./types"
 import Tag from "../ui/Tag"
 import { Colors } from "@/constants/Colors"
 import { TagType } from "../ui/TagStyles"
@@ -10,7 +10,7 @@ import Done from "./Done"
 import Edit from "./Edit"
 import { Link, router } from "expo-router"
 
-export default function TaskItem(props: TaskProps) {
+export default function TaskItem(props: TaskFields) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
 
   function getDifficultyColor(difficulty: Difficulties): string {
