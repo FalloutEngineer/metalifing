@@ -9,6 +9,13 @@ import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 import Done from "./Done"
 import Edit from "./Edit"
 import { Link, router } from "expo-router"
+import TimePicker from "../ui/TimePicker"
+import DatePicker from "../ui/DatePicker"
+import {
+  getDateFromString,
+  getFriendlyDate,
+  getFriendlyTime,
+} from "@/util/functions"
 
 export default function TaskItem(props: TaskFields) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
@@ -38,6 +45,8 @@ export default function TaskItem(props: TaskFields) {
 
   const priority = getPriorityText(props.priority)
   const priorityColor = getPriorityColor(props.priority)
+
+  const date = getDateFromString(props.date)
 
   function getPriorityText(priority: Priorities): string {
     let output: string
@@ -110,7 +119,9 @@ export default function TaskItem(props: TaskFields) {
             style={[{ marginBottom: -3 }]}
             name={"calendar-outline"}
           />
-          <Text style={styles.date}>{props.date}</Text>
+          <Text>
+            {getFriendlyTime(date)} {getFriendlyDate(date)}
+          </Text>
         </View>
       </View>
       <View style={[styles.right, { backgroundColor: difficultyColor }]}>

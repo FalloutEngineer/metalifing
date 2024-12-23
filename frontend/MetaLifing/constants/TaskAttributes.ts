@@ -1,12 +1,12 @@
 export enum Difficulties {
-  EASY = "difficulty_easy",
-  NORMAL = "difficulty_normal",
-  HARD = "difficulty_hard",
-  NIGHTMARE = "difficulty_nightmare",
+  EASY = "0",
+  NORMAL = "1",
+  HARD = "2",
+  NIGHTMARE = "3",
 }
 
 export enum Priorities {
-  LOW = "priority_low",
-  MEDIUM = "priority_medium",
-  HIGH = "priority_high",
+  LOW = "0",
+  MEDIUM = "1",
+  HIGH = "2",
 }

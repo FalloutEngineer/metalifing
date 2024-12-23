@@ -1,5 +1,6 @@
 import { TagType } from "./components/ui/TagStyles"
 import { Difficulties, Priorities } from "./constants/TaskAttributes"
+import { Colors } from "./Colors"
 
 type TaskFields = {
   id: TaskId
@@ -8,14 +9,23 @@ type TaskFields = {
   difficulty: Difficulties
   priority: Priorities
   tag: string
+  tagColor: typeof Colors
   reward: number
-  dateAndTime: Date
+  dateAndTime: string
   isDone: boolean
 }
 
+type TaskFormCallback = (task: TaskFields) => any
+
 type TaskFormProps = Partial<TaskFields> & {
   buttonName: string
-  buttonCallback: Function
+  buttonCallback: TaskFormCallback
 }
 
-type TaskId = number
+type TaskId = string
+
+type Tag = {
+  id: string
+  text: string
+  color: typeof Colors
+}

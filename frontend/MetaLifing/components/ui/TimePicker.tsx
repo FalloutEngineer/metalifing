@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors"
+import { getFriendlyTime } from "@/util/functions"
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { View, Text, StyleSheet, Pressable } from "react-native"
@@ -13,12 +14,7 @@ export default function TimePicker(props: { date: Date; onPress?: Function }) {
         }
       }}
     >
-      <Text style={styles.hours}>
-        {props.date.getHours()}:
-        {props.date.getMinutes() < 10
-          ? "0" + props.date.getMinutes()
-          : props.date.getMinutes()}
-      </Text>
+      <Text style={styles.hours}>{getFriendlyTime(props.date)}</Text>
     </Pressable>
   )
 }

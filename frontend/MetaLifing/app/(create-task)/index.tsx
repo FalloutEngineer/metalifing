@@ -6,29 +6,25 @@ import { Colors } from "@/constants/Colors"
 import { LayoutStyles } from "@/styles/layout"
 import { Ionicons } from "@expo/vector-icons"
 import React, { useState } from "react"
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Button,
-  useColorScheme,
-  ScrollView,
-} from "react-native"
+import { Text, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker"
-import DatePicker from "@/components/ui/DatePicker"
 import TimePicker from "@/components/ui/TimePicker"
 import TaskForm from "@/components/forms/TaskForm"
-import { Difficulties, Priorities } from "@/constants/TaskAttributes"
+import { TaskFields } from "@/types"
+
+import { useDispatch } from "react-redux"
+import { addTask } from "@/redux/slices/todos"
 
 export default function index() {
-  function createTask() {
+  const dispatch = useDispatch()
+
+  function createTask(task: TaskFields) {
+    console.log(task)
+
+    dispatch(addTask(task))
     //TODO:
-    console.log("task created")
+    console.log("Created", task)
   }
 
   return (

@@ -1,12 +1,17 @@
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
-import React, { useEffect, useState } from "react"
-import { View, Text, FlatList, StyleSheet } from "react-native"
-import TaskFields from "./types"
+import React, { useEffect } from "react"
+import { View, FlatList, StyleSheet, Text } from "react-native"
 import TaskItem from "./TaskItem"
-import { Colors } from "@/constants/Colors"
+
+import { useSelector, useDispatch } from "react-redux"
+import { RootState, AppDispatch } from "@/redux/store"
+import { toggleTask } from "@/redux/slices/todos"
 
 export default function TaskList() {
-  const [tasks, setTasks] = useState<TaskFields[]>([])
+  // const [tasks, setTasks] = useState<TaskFields[]>([])
+
+  const tasks = useSelector((state: RootState) => state.todos)
+  const dispatch: AppDispatch = useDispatch()
 
   useEffect(() => {}, [])
 
@@ -94,6 +99,7 @@ export default function TaskList() {
   // ]
 
   return (
+    // <Text>Hello</Text>
     <FlatList
       data={tasks}
       style={styles.taskList}
@@ -102,9 +108,9 @@ export default function TaskList() {
       renderItem={({ item }) => (
         <TaskItem
           id={item.id}
-          label={item.label}
+          label={item.name}
           reward={item.reward}
-          date={item.date}
+          date={item.dateAndTime}
           difficulty={item.difficulty}
           priority={item.priority}
           tag={item.tag}

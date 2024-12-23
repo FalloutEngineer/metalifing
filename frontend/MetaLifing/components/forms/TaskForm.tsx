@@ -1,6 +1,6 @@
 import { LayoutStyles } from "@/styles/layout"
-import { TaskFormProps } from "@/types"
-import React, { useState } from "react"
+import { TaskFields, TaskFormProps } from "@/types"
+import React, { useCallback, useState } from "react"
 import {
   View,
   Text,
@@ -20,14 +20,49 @@ import DatePicker from "../ui/DatePicker"
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker"
+import { debounce, getDateFromString } from "@/util/functions"
+import { Difficulties, Priorities } from "@/constants/TaskAttributes"
+import { Tags } from "@/constants/Tags"
 
 export default function TaskForm(props: TaskFormProps) {
-  const [taskDate, setTaskDate] = useState<Date>(
-    props.dateAndTime || new Date()
-  )
+  const [task, setTask] = useState<TaskFields>({
+    id: "",
+    name: "",
+    description: "",
+    difficulty: Difficulties.EASY,
+    priority: Priorities.LOW,
+    tag: "Learning",
+    tagColor: Colors.universal.ui.green,
+    reward: 0,
+    dateAndTime: props.dateAndTime || new Date().toString(),
+    isDone: false,
+  })
 
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
   const [datePickerMode, setDatePickerMode] = useState<"time" | "date">("date")
+
+  const handleFormChange = (
+    field: string,
+    value: string | number | Difficulties | Priorities
+  ) => {
+    const updatedForm = { ...task, [field]: value }
+    setTask(updatedForm)
+  }
+
+  const debouncedFormChangeHandler = useCallback(
+    debounce(handleFormChange, 100),
+    [JSON.stringify(task)]
+  )
+
+  const tagChangeHandler = (name: string, color: typeof Colors) => {
+    const updatedForm = { ...task, tag: name, tagColor: color }
+    setTask(updatedForm)
+  }
+
+  const debouncedTagChangeHandler = useCallback(
+    debounce(tagChangeHandler, 100),
+    [JSON.stringify(task)]
+  )
 
   const colorScheme = useColorScheme()
 
@@ -49,7 +84,7 @@ export default function TaskForm(props: TaskFormProps) {
 
     setShowDatePicker(false)
     if (currentDate) {
-      setTaskDate(currentDate)
+      setTask({ ...task, dateAndTime: currentDate.toLocaleDateString() })
     }
   }
 
@@ -65,7 +100,9 @@ export default function TaskForm(props: TaskFormProps) {
             <TextInput
               style={styles.input}
               placeholder="Wash the dishes..."
-              keyboardType="numeric"
+              onChange={(text) => {
+                debouncedFormChangeHandler("name", text.nativeEvent.text)
+              }}
             />
           </View>
           <View style={styles.inputGroup}>
@@ -79,12 +116,23 @@ export default function TaskForm(props: TaskFormProps) {
                 "Take the dishes from the table, place into the sink and turn on water..."
               }
               style={styles.input}
+              onChange={(text) => {
+                debouncedFormChangeHandler("description", text.nativeEvent.text)
+              }}
             />
           </View>
           <View style={styles.inputGroup}>
             <Text style={styles.inputHeading}>Difficulty</Text>
             <Selector
               itemStyles={{ borderRadius: 100 }}
+              onChange={(index: number) => {
+                const indexString = index.toString()
+                if (index.toString() in Difficulties)
+                  debouncedFormChangeHandler(
+                    "difficulty",
+                    indexString.toString()
+                  )
+              }}
               items={[
                 <Tag
                   text={"Easy"}
@@ -113,6 +161,11 @@ export default function TaskForm(props: TaskFormProps) {
             <Text style={styles.inputHeading}>Priority</Text>
             <Selector
               itemStyles={{ borderRadius: 100 }}
+              onChange={(index: number) => {
+                const indexString = index.toString()
+                if (index.toString() in Priorities)
+                  debouncedFormChangeHandler("priority", indexString.toString())
+              }}
               items={[
                 <Tag
                   text={"Low"}
@@ -136,33 +189,20 @@ export default function TaskForm(props: TaskFormProps) {
             <Text style={styles.inputHeading}>Tag</Text>
             <Selector
               itemStyles={{ borderRadius: 100 }}
-              items={[
+              onChange={(index: number) => {
+                if (index < Tags.length) {
+                  const tag = Tags[index]
+                  debouncedTagChangeHandler(tag.text, tag.color)
+                }
+              }}
+              items={Tags.map((tag) => (
                 <Tag
-                  text={"Learning"}
-                  color={Colors.universal.priorities.low}
+                  key={tag.id}
+                  text={tag.text}
+                  color={tag.color}
                   type={TagType.OUTLINE}
-                />,
-                <Tag
-                  text={"Chores"}
-                  color={Colors.universal.ui.gray}
-                  type={TagType.OUTLINE}
-                />,
-                <Tag
-                  text={"Work"}
-                  color={Colors.universal.ui.orange}
-                  type={TagType.OUTLINE}
-                />,
-                <Tag
-                  text={"Health"}
-                  color={Colors.universal.ui.red}
-                  type={TagType.OUTLINE}
-                />,
-                <Tag
-                  text={"Other"}
-                  color={Colors.universal.ui.violet}
-                  type={TagType.OUTLINE}
-                />,
-              ]}
+                />
+              ))}
             />
           </View>
           <View style={styles.inputGroup}>
@@ -174,6 +214,12 @@ export default function TaskForm(props: TaskFormProps) {
                 maxLength={3}
                 placeholder={"0"}
                 style={[styles.input, styles.numberInput]}
+                onChange={(reward) => {
+                  debouncedFormChangeHandler(
+                    "reward",
+                    Number.parseInt(reward.nativeEvent.text)
+                  )
+                }}
               />
               <View style={styles.diamondIconWrapper}>
                 <Ionicons
@@ -188,25 +234,30 @@ export default function TaskForm(props: TaskFormProps) {
           <View style={styles.inputGroup}>
             <Text style={styles.inputHeading}>Task date and time</Text>
             <View style={styles.dateGroup}>
-              <TimePicker date={taskDate} onPress={showTimePickerCallback} />
-              <DatePicker date={taskDate} onPress={showDatePickerCallback} />
+              <TimePicker
+                date={getDateFromString(task.dateAndTime)}
+                onPress={showTimePickerCallback}
+              />
+              <DatePicker
+                date={getDateFromString(task.dateAndTime)}
+                onPress={showDatePickerCallback}
+              />
             </View>
           </View>
           <View style={styles.submitWrapper}>
             <Button
               onPress={() => {
-                props.buttonCallback
+                props.buttonCallback(task)
               }}
               title={props.buttonName}
               color={Colors[colorScheme ?? "light"].violet}
-              accessibilityLabel="Submit task creation"
             />
           </View>
         </View>
       </ScrollView>
       {showDatePicker && (
         <DateTimePicker
-          value={taskDate}
+          value={getDateFromString(task.dateAndTime)}
           mode={datePickerMode}
           is24Hour={true}
           onChange={onDateChange}

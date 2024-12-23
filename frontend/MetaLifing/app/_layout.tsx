@@ -6,12 +6,13 @@ import {
 import { useFonts } from "expo-font"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import "react-native-reanimated"
 
 import { useColorScheme } from "@/hooks/useColorScheme"
-import { StatusBar } from "expo-status-bar"
-import { useThemeColor } from "@/hooks/useThemeColor"
+
+import { Provider as ReduxProvider } from "react-redux"
+import store from "../redux/store"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -33,14 +34,16 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack initialRouteName="(tabs)">
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="(create-task)" options={{ headerShown: false }} />
-        <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <ReduxProvider store={store}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack initialRouteName="(tabs)">
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(create-task)" options={{ headerShown: false }} />
+          <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </ReduxProvider>
   )
 }
 

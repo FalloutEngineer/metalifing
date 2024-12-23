@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors"
+import { getFriendlyDate } from "@/util/functions"
 import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { View, Text, StyleSheet, Pressable } from "react-native"
@@ -13,12 +14,7 @@ export default function DatePicker(props: { date: Date; onPress?: Function }) {
         }
       }}
     >
-      <Text style={styles.date}>
-        {props.date.getDate() < 10
-          ? "0" + props.date.getDate()
-          : props.date.getDate()}
-        .{props.date.getMonth()}.{props.date.getFullYear()}
-      </Text>
+      <Text style={styles.date}>{getFriendlyDate(props.date)}</Text>
       <View style={styles.iconContainer}>
         <Ionicons
           size={24}
