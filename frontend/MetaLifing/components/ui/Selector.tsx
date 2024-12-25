@@ -7,14 +7,14 @@ type OnChangeCallback = (number: number) => void
 export default function Selector({
   items,
   onChange,
-  initSelection,
+  defaultValue,
   selectorStyles,
   listStyles,
   itemStyles,
 }: {
   items: React.ReactNode[]
   onChange?: OnChangeCallback
-  initSelection?: number
+  defaultValue?: number
   selectorStyles?: Object
   listStyles?: Object
   itemStyles?: Object
@@ -39,7 +39,7 @@ export default function Selector({
   }
 
   const [selected, setSelected] = useState<number>(
-    initSelection && initSelection < items.length ? initSelection : 0
+    defaultValue && defaultValue < items.length ? defaultValue : 0
   )
 
   return (

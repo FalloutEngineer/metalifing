@@ -60,6 +60,9 @@ export default function TaskForm(props: TaskFormProps) {
   const tagChangeHandler = (name: string, color: typeof Colors) => {
     const updatedForm = { ...task, tag: name, tagColor: color }
     setTask(updatedForm)
+    if (props.globalStateCallback) {
+      props.globalStateCallback(updatedForm)
+    }
   }
 
   const debouncedTagChangeHandler = useCallback(
@@ -136,9 +139,17 @@ export default function TaskForm(props: TaskFormProps) {
             <Text style={styles.inputHeading}>Difficulty</Text>
             <Selector
               itemStyles={{ borderRadius: 100 }}
+              defaultValue={
+                props.difficulty ? Number.parseInt(props.difficulty) : 0
+              }
               onChange={(index: number) => {
                 const indexString = index.toString()
-                if (index.toString() in Difficulties)
+
+                if (
+                  Object.values(Difficulties).includes(
+                    index.toString() as Difficulties
+                  )
+                )
                   debouncedFormChangeHandler(
                     "difficulty",
                     indexString.toString()
@@ -172,9 +183,16 @@ export default function TaskForm(props: TaskFormProps) {
             <Text style={styles.inputHeading}>Priority</Text>
             <Selector
               itemStyles={{ borderRadius: 100 }}
+              defaultValue={
+                props.priority ? Number.parseInt(props.priority) : 0
+              }
               onChange={(index: number) => {
                 const indexString = index.toString()
-                if (index.toString() in Priorities)
+                if (
+                  Object.values(Priorities).includes(
+                    index.toString() as Priorities
+                  )
+                )
                   debouncedFormChangeHandler("priority", indexString.toString())
               }}
               items={[
