@@ -226,9 +226,18 @@ export default function TaskForm(props: TaskFormProps) {
                 defaultValue={props.reward?.toString()}
                 style={[styles.input, styles.numberInput]}
                 onChange={(reward) => {
+                  let moderatedValue = reward.nativeEvent.text
+
+                  if (
+                    moderatedValue === "" ||
+                    moderatedValue === null ||
+                    moderatedValue === undefined
+                  ) {
+                    moderatedValue = "0"
+                  }
                   debouncedFormChangeHandler(
                     "reward",
-                    Number.parseInt(reward.nativeEvent.text)
+                    Number.parseInt(moderatedValue)
                   )
                 }}
               />
