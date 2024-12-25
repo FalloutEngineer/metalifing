@@ -17,13 +17,15 @@ export default function TaskList() {
       renderItem={({ item }) => (
         <TaskItem
           id={item.id}
-          label={item.name}
+          name={item.name}
           reward={item.reward}
-          date={item.dateAndTime}
+          dateAndTime={item.dateAndTime}
           difficulty={item.difficulty}
           priority={item.priority}
           tag={item.tag}
           tagColor={item.tagColor}
+          isDone={item.isDone}
+          description={item.description}
         />
       )}
     />

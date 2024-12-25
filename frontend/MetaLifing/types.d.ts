@@ -19,6 +19,8 @@ type TaskFormCallback = (task: TaskFields) => any
 
 type GlobalStateCallback = (task: TaskFields) => any
 
+type DoneCallback = () => any
+
 type TaskFormProps = Partial<TaskFields> & {
   buttonName: string
   buttonCallback: TaskFormCallback

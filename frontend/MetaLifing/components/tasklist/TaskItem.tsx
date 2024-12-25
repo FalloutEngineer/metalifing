@@ -1,6 +1,5 @@
 import React from "react"
 import { View, Text, StyleSheet, Platform } from "react-native"
-import TaskFields from "./types"
 import Tag from "../ui/Tag"
 import { Colors } from "@/constants/Colors"
 import { TagType } from "../ui/TagStyles"
@@ -8,17 +7,32 @@ import Ionicons from "@expo/vector-icons/Ionicons"
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 import Done from "./Done"
 import Edit from "./Edit"
-import { Link, router } from "expo-router"
-import TimePicker from "../ui/TimePicker"
-import DatePicker from "../ui/DatePicker"
+import { router } from "expo-router"
 import {
   getDateFromString,
   getFriendlyDate,
   getFriendlyTime,
 } from "@/util/functions"
+import { TaskFields } from "@/types"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import { updateTask } from "@/redux/slices/todos"
 
 export default function TaskItem(props: TaskFields) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
+
+  const todo = useSelector((state: RootState) =>
+    state.todos.find((item) => item.id === props.id)
+  )
+  const dispatch = useDispatch()
+
+  const changeTaskState = () => {
+    if (todo) {
+      const newTodo = { ...todo }
+      newTodo.isDone = !newTodo.isDone
+      dispatch(updateTask(newTodo))
+    }
+  }
 
   function getDifficultyColor(difficulty: Difficulties): string {
     let output: string
@@ -46,7 +60,7 @@ export default function TaskItem(props: TaskFields) {
   const priority = getPriorityText(props.priority)
   const priorityColor = getPriorityColor(props.priority)
 
-  const date = getDateFromString(props.date)
+  const date = getDateFromString(props.dateAndTime)
 
   function getPriorityText(priority: Priorities): string {
     let output: string
@@ -91,7 +105,7 @@ export default function TaskItem(props: TaskFields) {
   }
 
   return (
-    <View style={styles.body}>
+    <View style={[styles.body, props.isDone ? styles.done : null]}>
       <View style={styles.left}>
         {props.reward > 0 && (
           <View style={styles.rewardContainer}>
@@ -108,7 +122,7 @@ export default function TaskItem(props: TaskFields) {
             />
           </View>
         )}
-        <Text style={styles.heading}>{props.label}</Text>
+        <Text style={styles.heading}>{props.name}</Text>
         <View style={styles.tagsContainer}>
           <Tag text={priority} color={priorityColor} type={TagType.SOLID} />
           <Tag text={props.tag} color={props.tagColor} type={TagType.OUTLINE} />
@@ -125,12 +139,7 @@ export default function TaskItem(props: TaskFields) {
         </View>
       </View>
       <View style={[styles.right, { backgroundColor: difficultyColor }]}>
-        <Done
-          callback={() => {
-            //TODO:
-            console.log("done", props.label)
-          }}
-        />
+        <Done callback={changeTaskState} isDone={props.isDone} />
         <Edit
           callback={() => {
             router.push(`/(edit-task)/${props.id}`)
@@ -206,5 +215,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 24,
     maxWidth: 50,
+  },
+  done: {
+    opacity: 0.5,
   },
 })
