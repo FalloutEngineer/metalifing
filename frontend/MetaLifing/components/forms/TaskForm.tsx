@@ -87,7 +87,12 @@ export default function TaskForm(props: TaskFormProps) {
 
     setShowDatePicker(false)
     if (currentDate) {
-      setTask({ ...task, dateAndTime: currentDate.toString() })
+      const updatedForm = { ...task, dateAndTime: currentDate.toString() }
+      setTask(updatedForm)
+
+      if (props.globalStateCallback) {
+        props.globalStateCallback(updatedForm)
+      }
     }
   }
 
@@ -263,6 +268,7 @@ export default function TaskForm(props: TaskFormProps) {
       </ScrollView>
       {showDatePicker && (
         <DateTimePicker
+          minimumDate={new Date()}
           value={getDateFromString(task.dateAndTime)}
           mode={datePickerMode}
           is24Hour={true}
