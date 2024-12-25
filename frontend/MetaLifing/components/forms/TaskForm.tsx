@@ -38,8 +38,27 @@ export default function TaskForm(props: TaskFormProps) {
     isDone: false,
   })
 
+  const [validationErrors, setValidationErrors] = useState({
+    name: false,
+    description: false,
+  })
+
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
   const [datePickerMode, setDatePickerMode] = useState<"time" | "date">("date")
+
+  // TODO:
+  const tryValidateForm = () => {
+    const nameValidation = task.name === ""
+    const descriptionValidation = task.description === ""
+
+    const newValidationErrors = {
+      name: nameValidation,
+      description: descriptionValidation,
+    }
+    setValidationErrors(newValidationErrors)
+
+    return nameValidation || descriptionValidation
+  }
 
   const handleFormChange = (
     field: string,
@@ -99,6 +118,14 @@ export default function TaskForm(props: TaskFormProps) {
     }
   }
 
+  const sumbitButtonPressEvent = () => {
+    const validationUnsuccessfull = tryValidateForm()
+
+    if (!validationUnsuccessfull) {
+      props.buttonCallback(task)
+    }
+  }
+
   return (
     <>
       <ScrollView
@@ -109,8 +136,16 @@ export default function TaskForm(props: TaskFormProps) {
         <View style={styles.inputsWrapper}>
           <View style={styles.inputGroup}>
             <Text style={styles.inputHeading}>Task name</Text>
+            <Text
+              style={validationErrors.name ? styles.error : styles.disabled}
+            >
+              Please fill required field
+            </Text>
             <TextInput
-              style={styles.input}
+              style={[
+                styles.input,
+                validationErrors.name ? styles.inputValidationError : null,
+              ]}
               defaultValue={props.name}
               placeholder="Wash the dishes..."
               onChange={(text) => {
@@ -120,6 +155,11 @@ export default function TaskForm(props: TaskFormProps) {
           </View>
           <View style={styles.inputGroup}>
             <Text style={styles.inputHeading}>Task description</Text>
+            <Text
+              style={validationErrors.name ? styles.error : styles.disabled}
+            >
+              Please fill required field
+            </Text>
             <TextInput
               editable
               multiline
@@ -129,7 +169,10 @@ export default function TaskForm(props: TaskFormProps) {
               placeholder={
                 "Take the dishes from the table, place into the sink and turn on water..."
               }
-              style={styles.input}
+              style={[
+                styles.input,
+                validationErrors.name ? styles.inputValidationError : null,
+              ]}
               onChange={(text) => {
                 debouncedFormChangeHandler("description", text.nativeEvent.text)
               }}
@@ -290,9 +333,7 @@ export default function TaskForm(props: TaskFormProps) {
           </View>
           <View style={styles.submitWrapper}>
             <Button
-              onPress={() => {
-                props.buttonCallback(task)
-              }}
+              onPress={sumbitButtonPressEvent}
               title={props.buttonName}
               color={Colors[colorScheme ?? "light"].violet}
             />
@@ -324,6 +365,16 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     gap: 10,
+  },
+  inputValidationError: {
+    borderColor: Colors.universal.ui.red,
+    borderWidth: 1,
+  },
+  disabled: {
+    display: "none",
+  },
+  error: {
+    color: Colors.universal.ui.red,
   },
   numberInput: {
     width: 75,

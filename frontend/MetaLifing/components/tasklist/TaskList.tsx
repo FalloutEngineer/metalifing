@@ -1,19 +1,14 @@
-import { Difficulties, Priorities } from "@/constants/TaskAttributes"
-import React, { useEffect } from "react"
+import React from "react"
 import { View, FlatList, StyleSheet, Text } from "react-native"
 import TaskItem from "./TaskItem"
 
-import { useSelector, useDispatch } from "react-redux"
-import { RootState, AppDispatch } from "@/redux/store"
-import { toggleTask } from "@/redux/slices/todos"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
 
 export default function TaskList() {
-  // const [tasks, setTasks] = useState<TaskFields[]>([])
-
   const tasks = useSelector((state: RootState) => state.todos)
-  const dispatch: AppDispatch = useDispatch()
+
   return (
-    // <Text>Hello</Text>
     <FlatList
       data={tasks}
       style={styles.taskList}

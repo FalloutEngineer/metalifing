@@ -1,10 +1,4 @@
 import Header from "@/components/Header"
-import Selector from "@/components/ui/Selector"
-import Tag from "@/components/ui/Tag"
-import { TagType } from "@/components/ui/TagStyles"
-import { Colors } from "@/constants/Colors"
-import { LayoutStyles } from "@/styles/layout"
-import { Ionicons } from "@expo/vector-icons"
 import React, { useState } from "react"
 import { Text, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -28,8 +22,6 @@ export default function index() {
     dispatch(addTask(task))
     dispatch(clearTodo())
     router.back()
-    //TODO:
-    console.log("Created", task)
   }
 
   function updateGlobalCreateTaskState(task: TaskFields) {
