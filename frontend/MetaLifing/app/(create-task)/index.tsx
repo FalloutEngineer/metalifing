@@ -13,18 +13,24 @@ import TimePicker from "@/components/ui/TimePicker"
 import TaskForm from "@/components/forms/TaskForm"
 import { TaskFields } from "@/types"
 
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addTask } from "@/redux/slices/todos"
+import { setTodo, clearTodo } from "@/redux/slices/createTodo"
+import { RootState } from "@/redux/store"
 
 export default function index() {
+  const todo = useSelector((state: RootState) => state.createTodo)
   const dispatch = useDispatch()
 
   function createTask(task: TaskFields) {
-    console.log(task)
-
     dispatch(addTask(task))
+    dispatch(clearTodo())
     //TODO:
     console.log("Created", task)
+  }
+
+  function updateGlobalCreateTaskState(task: TaskFields) {
+    dispatch(setTodo(task))
   }
 
   return (
@@ -32,7 +38,12 @@ export default function index() {
       <Header isReturnButtonActive={true} fontSize={26}>
         <Text>Create task</Text>
       </Header>
-      <TaskForm buttonName={"Create"} buttonCallback={createTask}></TaskForm>
+      <TaskForm
+        buttonName={"Create"}
+        buttonCallback={createTask}
+        globalStateCallback={updateGlobalCreateTaskState}
+        {...todo}
+      ></TaskForm>
     </SafeAreaView>
   )
 }

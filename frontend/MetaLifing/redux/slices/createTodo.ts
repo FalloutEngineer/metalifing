@@ -23,10 +23,12 @@ const createTodoSlice = createSlice({
   initialState,
   reducers: {
     setTodo: (state, action: PayloadAction<TaskFields>) => {
-      state = action.payload
+      state = { ...action.payload }
+      return state
     },
     clearTodo: (state) => {
       state = { ...defaultTask }
+      return state
     },
   },
 })

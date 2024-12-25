@@ -17,9 +17,12 @@ type TaskFields = {
 
 type TaskFormCallback = (task: TaskFields) => any
 
+type GlobalStateCallback = (task: TaskFields) => any
+
 type TaskFormProps = Partial<TaskFields> & {
   buttonName: string
   buttonCallback: TaskFormCallback
+  globalStateCallback?: GlobalStateCallback
 }
 
 type TaskId = string

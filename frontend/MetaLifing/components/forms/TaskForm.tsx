@@ -27,13 +27,13 @@ import { Tags } from "@/constants/Tags"
 export default function TaskForm(props: TaskFormProps) {
   const [task, setTask] = useState<TaskFields>({
     id: "",
-    name: "",
-    description: "",
-    difficulty: Difficulties.EASY,
-    priority: Priorities.LOW,
-    tag: "Learning",
-    tagColor: Colors.universal.ui.green,
-    reward: 0,
+    name: props.name || "",
+    description: props.description || "",
+    difficulty: props.difficulty || Difficulties.EASY,
+    priority: props.priority || Priorities.LOW,
+    tag: props.tag || "Learning",
+    tagColor: props.tagColor || Colors.universal.ui.green,
+    reward: props.reward || 0,
     dateAndTime: props.dateAndTime || new Date().toString(),
     isDone: false,
   })
@@ -47,10 +47,13 @@ export default function TaskForm(props: TaskFormProps) {
   ) => {
     const updatedForm = { ...task, [field]: value }
     setTask(updatedForm)
+    if (props.globalStateCallback) {
+      props.globalStateCallback(updatedForm)
+    }
   }
 
   const debouncedFormChangeHandler = useCallback(
-    debounce(handleFormChange, 100),
+    debounce(handleFormChange, 500),
     [JSON.stringify(task)]
   )
 
@@ -60,7 +63,7 @@ export default function TaskForm(props: TaskFormProps) {
   }
 
   const debouncedTagChangeHandler = useCallback(
-    debounce(tagChangeHandler, 100),
+    debounce(tagChangeHandler, 500),
     [JSON.stringify(task)]
   )
 
@@ -84,7 +87,7 @@ export default function TaskForm(props: TaskFormProps) {
 
     setShowDatePicker(false)
     if (currentDate) {
-      setTask({ ...task, dateAndTime: currentDate.toLocaleDateString() })
+      setTask({ ...task, dateAndTime: currentDate.toString() })
     }
   }
 
@@ -99,6 +102,7 @@ export default function TaskForm(props: TaskFormProps) {
             <Text style={styles.inputHeading}>Task name</Text>
             <TextInput
               style={styles.input}
+              defaultValue={props.name}
               placeholder="Wash the dishes..."
               onChange={(text) => {
                 debouncedFormChangeHandler("name", text.nativeEvent.text)
@@ -112,6 +116,7 @@ export default function TaskForm(props: TaskFormProps) {
               multiline
               numberOfLines={4}
               maxLength={40}
+              defaultValue={props.description}
               placeholder={
                 "Take the dishes from the table, place into the sink and turn on water..."
               }
@@ -213,6 +218,7 @@ export default function TaskForm(props: TaskFormProps) {
                 editable
                 maxLength={3}
                 placeholder={"0"}
+                defaultValue={props.reward?.toString()}
                 style={[styles.input, styles.numberInput]}
                 onChange={(reward) => {
                   debouncedFormChangeHandler(

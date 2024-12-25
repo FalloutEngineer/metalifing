@@ -1,5 +1,5 @@
 export function getDateFromString(date: string): Date {
-  return new Date(date)
+  return new Date(date.split("/").join("-"))
 }
 
 export function getFriendlyTime(date: Date): string {
