@@ -101,6 +101,7 @@ export default function TaskForm(props: TaskFormProps) {
       <ScrollView
         style={[LayoutStyles.mainView, styles.scrollableView]}
         contentContainerStyle={styles.scrollableViewContent}
+        keyboardShouldPersistTaps="handled"
       >
         <View style={styles.inputsWrapper}>
           <View style={styles.inputGroup}>

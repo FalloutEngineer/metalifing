@@ -9,7 +9,6 @@ import React, { useState } from "react"
 import { Text, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 
-import TimePicker from "@/components/ui/TimePicker"
 import TaskForm from "@/components/forms/TaskForm"
 import { TaskFields } from "@/types"
 
@@ -17,14 +16,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { addTask } from "@/redux/slices/todos"
 import { setTodo, clearTodo } from "@/redux/slices/createTodo"
 import { RootState } from "@/redux/store"
+import { useRouter } from "expo-router"
 
 export default function index() {
   const todo = useSelector((state: RootState) => state.createTodo)
   const dispatch = useDispatch()
 
+  const router = useRouter()
+
   function createTask(task: TaskFields) {
     dispatch(addTask(task))
     dispatch(clearTodo())
+    router.back()
     //TODO:
     console.log("Created", task)
   }
