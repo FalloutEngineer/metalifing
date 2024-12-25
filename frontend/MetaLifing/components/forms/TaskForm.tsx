@@ -217,6 +217,11 @@ export default function TaskForm(props: TaskFormProps) {
           <View style={styles.inputGroup}>
             <Text style={styles.inputHeading}>Tag</Text>
             <Selector
+              defaultValue={
+                props.tag
+                  ? Tags.findIndex((item) => item.text === props.tag)
+                  : 0
+              }
               itemStyles={{ borderRadius: 100 }}
               onChange={(index: number) => {
                 if (index < Tags.length) {
