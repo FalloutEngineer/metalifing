@@ -15,7 +15,7 @@ export default function EditTask() {
   const router = useRouter()
 
   const task = useSelector((state: RootState) =>
-    state.todos.find((item) => item.id === id)
+    state.todos.array.find((item) => item.id === id)
   )
 
   const dispatch = useDispatch()

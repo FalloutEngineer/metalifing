@@ -22,7 +22,7 @@ export default function TaskItem(props: TaskFields) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
 
   const todo = useSelector((state: RootState) =>
-    state.todos.find((item) => item.id === props.id)
+    state.todos.array.find((item) => item.id === props.id)
   )
   const dispatch = useDispatch()
 

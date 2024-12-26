@@ -15,6 +15,10 @@ type TaskFields = {
   isDone: boolean
 }
 
+interface TodoInitialState {
+  array: Array<TaskFields>
+}
+
 type TaskFormCallback = (task: TaskFields) => any
 
 type GlobalStateCallback = (task: TaskFields) => any

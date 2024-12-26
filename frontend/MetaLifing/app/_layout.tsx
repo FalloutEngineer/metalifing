@@ -13,6 +13,8 @@ import { useColorScheme } from "@/hooks/useColorScheme"
 
 import { Provider as ReduxProvider } from "react-redux"
 import store from "../redux/store"
+import { persistor } from "../redux/store"
+import { PersistGate } from "redux-persist/integration/react"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
@@ -35,14 +37,21 @@ export default function RootLayout() {
 
   return (
     <ReduxProvider store={store}>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack initialRouteName="(tabs)">
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(create-task)" options={{ headerShown: false }} />
-          <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-      </ThemeProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <Stack initialRouteName="(tabs)">
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(create-task)"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </ThemeProvider>
+      </PersistGate>
     </ReduxProvider>
   )
 }

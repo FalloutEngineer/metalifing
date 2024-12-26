@@ -10,7 +10,7 @@ export default function TaskList() {
 
   return (
     <FlatList
-      data={tasks}
+      data={tasks.array}
       style={styles.taskList}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={() => <View style={styles.footer} />}
