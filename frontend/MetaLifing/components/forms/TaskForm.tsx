@@ -26,7 +26,7 @@ import { Tags } from "@/constants/Tags"
 
 export default function TaskForm(props: TaskFormProps) {
   const [task, setTask] = useState<TaskFields>({
-    id: "",
+    id: props.id || "",
     name: props.name || "",
     description: props.description || "",
     difficulty: props.difficulty || Difficulties.EASY,
@@ -46,7 +46,6 @@ export default function TaskForm(props: TaskFormProps) {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
   const [datePickerMode, setDatePickerMode] = useState<"time" | "date">("date")
 
-  // TODO:
   const tryValidateForm = () => {
     const nameValidation = task.name === ""
     const descriptionValidation = task.description === ""

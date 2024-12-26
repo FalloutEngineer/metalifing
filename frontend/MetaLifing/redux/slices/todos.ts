@@ -1,3 +1,4 @@
+import { Colors } from "@/constants/Colors"
 import { Difficulties, Priorities } from "@/constants/TaskAttributes"
 import { TaskFields, TaskId } from "@/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
@@ -10,7 +11,7 @@ const initialState: TaskFields[] = [
     difficulty: Difficulties.EASY,
     priority: Priorities.LOW,
     tag: "Learning",
-    tagColor: "red",
+    tagColor: Colors.universal.ui.green,
     reward: 5,
     dateAndTime: new Date("22-12-2024").toString(),
     isDone: false,
