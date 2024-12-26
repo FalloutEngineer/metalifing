@@ -6,6 +6,8 @@ import { LayoutStyles } from "@/styles/layout"
 import { useRouter } from "expo-router"
 import { useThemeColor } from "@/hooks/useThemeColor"
 import { Ionicons } from "@expo/vector-icons"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
 
 export default function Header({
   children,
@@ -16,7 +18,8 @@ export default function Header({
   isReturnButtonActive?: boolean
   fontSize?: number
 }) {
-  const [coins, setCoins] = useState(999999998)
+  const coinsStore = useSelector((state: RootState) => state.coins)
+  const coins = coinsStore.value
 
   const bgColor = useThemeColor({}, "background")
   const textColor = useThemeColor({}, "text")

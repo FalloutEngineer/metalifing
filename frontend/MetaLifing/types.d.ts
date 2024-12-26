@@ -38,3 +38,9 @@ type Tag = {
   text: string
   color: typeof Colors
 }
+
+type Coins = number
+
+interface CoinsInitialState {
+  value: Coins
+}

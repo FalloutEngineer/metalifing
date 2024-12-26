@@ -4,15 +4,22 @@ import createTodoReducer from "./slices/createTodo"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import { persistReducer } from "redux-persist"
 import persistStore from "redux-persist/es/persistStore"
+import coinsReducer from "./slices/coins"
 
 const persistConfig = {
   key: "todos",
   storage: AsyncStorage,
 }
 
+const persistCoinsConfig = {
+  key: "coins",
+  storage: AsyncStorage,
+}
+
 const rootReducer = combineReducers({
   todos: persistReducer(persistConfig, taskReducer),
   createTodo: createTodoReducer,
+  coins: persistReducer(persistCoinsConfig, coinsReducer),
 })
 
 const store = configureStore({
