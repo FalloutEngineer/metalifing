@@ -50,3 +50,9 @@ type TasksStatesObject = {
   inProgress: number
   completed: number
 }
+
+type FilterState = {
+  state: number
+}
+
+type TaskFilter = number

@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { persistReducer } from "redux-persist"
 import persistStore from "redux-persist/es/persistStore"
 import coinsReducer from "./slices/coins"
+import taskFilterReducer from "./slices/filterState"
 
 const persistConfig = {
   key: "todos",
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   todos: persistReducer(persistConfig, taskReducer),
   createTodo: createTodoReducer,
   coins: persistReducer(persistCoinsConfig, coinsReducer),
+  taskFilter: taskFilterReducer,
 })
 
 const store = configureStore({

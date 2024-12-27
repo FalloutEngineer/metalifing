@@ -2,15 +2,14 @@ import React from "react"
 import { View, FlatList, StyleSheet, Text } from "react-native"
 import TaskItem from "./TaskItem"
 
-import { useSelector } from "react-redux"
-import { RootState } from "@/redux/store"
+import useFilteredTasks from "@/hooks/useFilteredTasks"
 
 export default function TaskList() {
-  const tasks = useSelector((state: RootState) => state.todos)
+  const filteredTasks = useFilteredTasks()
 
   return (
     <FlatList
-      data={tasks.array}
+      data={filteredTasks}
       style={styles.taskList}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={() => <View style={styles.footer} />}

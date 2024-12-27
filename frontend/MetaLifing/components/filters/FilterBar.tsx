@@ -1,40 +1,51 @@
-import React from "react"
-import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native"
+import React, { useState } from "react"
+import { View, StyleSheet, FlatList, Dimensions } from "react-native"
 import FilterBtn from "./FilterBtn"
-import FilterButtonProps from "./types"
+import { FilterButton } from "./types"
 import { Colors } from "@/constants/Colors"
 import { useTasksStates } from "@/hooks/useTasksStates"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import { useDispatch } from "react-redux"
+import { setState } from "@/redux/slices/filterState"
 
 export default function FilterBar() {
+  const taskFilterState = useSelector(
+    (state: RootState) => state.taskFilter.state
+  )
+
   const states = useTasksStates()
 
-  const data: FilterButtonProps[] = [
+  const dispatch = useDispatch()
+
+  function changeState(newState: number) {
+    dispatch(setState(newState))
+  }
+
+  const data: FilterButton[] = [
     {
       label: "All",
       number: states.all,
       color: Colors.universal.ui.diamond,
       filter: () => {
-        console.log("All")
+        changeState(0)
       },
-      state: true,
     },
     {
       label: "In Progress",
       number: states.inProgress,
       color: Colors.universal.ui.orange,
       filter: () => {
-        console.log("In Progress")
+        changeState(1)
       },
-      state: false,
     },
     {
       label: "Completed",
       number: states.completed,
       color: Colors.universal.ui.green,
       filter: () => {
-        console.log("Completed")
+        changeState(2)
       },
-      state: false,
     },
   ]
 
@@ -46,13 +57,13 @@ export default function FilterBar() {
       style={styles.bar}
       ItemSeparatorComponent={() => <View style={styles.separator} />}
       ListFooterComponent={() => <View style={styles.separator} />}
-      renderItem={({ item }: { item: FilterButtonProps }) => (
+      renderItem={({ item, index }: { item: FilterButton; index: number }) => (
         <FilterBtn
           label={item.label}
           number={item.number}
           color={item.color}
           filter={item.filter}
-          state={item.state}
+          state={index === taskFilterState}
         />
       )}
     />
