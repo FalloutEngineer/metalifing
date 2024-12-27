@@ -8,12 +8,10 @@ import { useTasksStates } from "@/hooks/useTasksStates"
 export default function FilterBar() {
   const states = useTasksStates()
 
-  console.log(states)
-
   const data: FilterButtonProps[] = [
     {
       label: "All",
-      number: 0,
+      number: states.all,
       color: Colors.universal.ui.diamond,
       filter: () => {
         console.log("All")
@@ -22,7 +20,7 @@ export default function FilterBar() {
     },
     {
       label: "In Progress",
-      number: 0,
+      number: states.inProgress,
       color: Colors.universal.ui.orange,
       filter: () => {
         console.log("In Progress")
@@ -31,7 +29,7 @@ export default function FilterBar() {
     },
     {
       label: "Completed",
-      number: 0,
+      number: states.completed,
       color: Colors.universal.ui.green,
       filter: () => {
         console.log("Completed")
