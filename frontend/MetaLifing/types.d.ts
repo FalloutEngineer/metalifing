@@ -44,3 +44,9 @@ type Coins = number
 interface CoinsInitialState {
   value: Coins
 }
+
+type TasksStatesObject = {
+  all: number
+  inProgress: number
+  completed: number
+}

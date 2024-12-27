@@ -3,8 +3,13 @@ import { View, Text, StyleSheet, FlatList, Dimensions } from "react-native"
 import FilterBtn from "./FilterBtn"
 import FilterButtonProps from "./types"
 import { Colors } from "@/constants/Colors"
+import { useTasksStates } from "@/hooks/useTasksStates"
 
 export default function FilterBar() {
+  const states = useTasksStates()
+
+  console.log(states)
+
   const data: FilterButtonProps[] = [
     {
       label: "All",
