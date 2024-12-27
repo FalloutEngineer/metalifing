@@ -14,7 +14,7 @@ const coinsSlice = createSlice({
       return state
     },
     subtractCoins: (state, action: PayloadAction<Coins>) => {
-      state.value = state.value + action.payload
+      state.value = state.value - action.payload
       return state
     },
   },

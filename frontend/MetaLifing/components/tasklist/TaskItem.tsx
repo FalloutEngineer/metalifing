@@ -17,6 +17,7 @@ import { TaskFields } from "@/types"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { updateTask } from "@/redux/slices/todos"
+import { addCoins, subtractCoins } from "@/redux/slices/coins"
 
 export default function TaskItem(props: TaskFields) {
   const difficultyColor: string = getDifficultyColor(props.difficulty)
@@ -24,6 +25,11 @@ export default function TaskItem(props: TaskFields) {
   const todo = useSelector((state: RootState) =>
     state.todos.array.find((item) => item.id === props.id)
   )
+
+  const coins = useSelector((state: RootState) => {
+    return state.coins.value
+  })
+
   const dispatch = useDispatch()
 
   const changeTaskState = () => {
@@ -31,7 +37,21 @@ export default function TaskItem(props: TaskFields) {
       const newTodo = { ...todo }
       newTodo.isDone = !newTodo.isDone
       dispatch(updateTask(newTodo))
+
+      if (newTodo.isDone) {
+        taskDoneHandler()
+      } else {
+        taskUndoneHandler()
+      }
     }
+  }
+
+  const taskDoneHandler = () => {
+    dispatch(addCoins(props.reward))
+  }
+
+  const taskUndoneHandler = () => {
+    dispatch(subtractCoins(props.reward))
   }
 
   function getDifficultyColor(difficulty: Difficulties): string {
