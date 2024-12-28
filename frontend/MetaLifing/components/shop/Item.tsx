@@ -5,6 +5,7 @@ import Coins from "../Coins"
 
 export default function Item(props: {
   price: number
+  amount?: number
   name: string
   fontSize: number
   buttons: ReactElement<typeof ItemButton> | ReactElement<typeof ItemButton>[]
@@ -58,28 +59,41 @@ export default function Item(props: {
       fontSize: props.fontSize,
     },
     buttons: {
-      flex: 2,
-
       display: "flex",
-      justifyContent: "flex-end",
-      alignItems: "flex-end",
+      backgroundColor: "black",
+    },
+    lower: {
+      flex: 2,
+      display: "flex",
+      width: "100%",
+      maxWidth: "100%",
+      maxHeight: "100%",
+      justifyContent: "space-between",
+      alignContent: "flex-start",
+      flexDirection: "row",
+    },
+    amount: {
+      fontSize: 18,
     },
   })
 
   return (
     <View style={styles.item}>
       <View style={styles.header}>
-        <Coins coins={props.price} fontSize={18} />
+        <Text style={styles.amount}>x{props.amount ? props.amount : 0}</Text>
       </View>
       <View style={styles.body}>
         <Text style={styles.text}>{props.name}</Text>
       </View>
-      <View style={styles.buttons}>
-        {Array.isArray(props.buttons)
-          ? props.buttons.map((child, index) => (
-              <Fragment key={index}>{child}</Fragment>
-            ))
-          : props.buttons}
+      <View style={styles.lower}>
+        <Coins coins={props.price} fontSize={18} />
+        <View style={styles.buttons}>
+          {Array.isArray(props.buttons)
+            ? props.buttons.map((child, index) => (
+                <Fragment key={index}>{child}</Fragment>
+              ))
+            : props.buttons}
+        </View>
       </View>
     </View>
   )
