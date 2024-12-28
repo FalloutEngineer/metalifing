@@ -4,7 +4,13 @@ import { Ionicons } from "@expo/vector-icons"
 import React from "react"
 import { View, Text, StyleSheet, Platform } from "react-native"
 
-export default function Coins({ coins }: { coins: number }) {
+export default function Coins({
+  coins,
+  fontSize,
+}: {
+  coins: number
+  fontSize?: number
+}) {
   let formattedNumber
 
   if (coins > 999999999) {
@@ -23,7 +29,7 @@ export default function Coins({ coins }: { coins: number }) {
       alignItems: "center",
     },
     number: {
-      fontSize: 20,
+      fontSize: fontSize || 20,
       fontWeight: "light",
       color: textColor,
       ...Platform.select({
@@ -32,8 +38,8 @@ export default function Coins({ coins }: { coins: number }) {
       }),
     },
     coin: {
-      height: 20,
-      width: 20,
+      height: fontSize || 20,
+      width: fontSize || 20,
       borderRadius: 9999,
       backgroundColor: "#FFDF0E",
     },
@@ -43,7 +49,7 @@ export default function Coins({ coins }: { coins: number }) {
     <View style={styles.container}>
       <Text style={styles.number}>{formattedNumber}</Text>
       <Ionicons
-        size={18}
+        size={fontSize ? fontSize - 2 : 18}
         color={Colors.universal.ui.diamond}
         style={[{ marginBottom: -3 }]}
         name={"diamond-outline"}

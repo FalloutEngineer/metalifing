@@ -4,10 +4,22 @@ import { StyleSheet, FlatList, View } from "react-native"
 export default function ItemsGrid(props: { children: ReactNode[] }) {
   return (
     <FlatList
-      style={styles.grid}
       data={props.children}
+      contentContainerStyle={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+        marginTop: 15,
+      }}
+      columnWrapperStyle={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+
+        marginBottom: "2%",
+      }}
       renderItem={(item) => {
-        return <View>{item.item}</View>
+        return <View style={styles.item}>{item.item}</View>
       }}
       numColumns={3}
     />
@@ -15,7 +27,9 @@ export default function ItemsGrid(props: { children: ReactNode[] }) {
 }
 
 const styles = StyleSheet.create({
-  grid: {
-    display: "flex",
+  item: {
+    maxWidth: "32%",
+    aspectRatio: 1,
+    width: "100%",
   },
 })
