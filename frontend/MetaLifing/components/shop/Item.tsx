@@ -60,7 +60,6 @@ export default function Item(props: {
     },
     buttons: {
       display: "flex",
-      backgroundColor: "black",
     },
     lower: {
       flex: 2,
