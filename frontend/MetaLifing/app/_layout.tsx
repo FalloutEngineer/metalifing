@@ -48,6 +48,10 @@ export default function RootLayout() {
               options={{ headerShown: false }}
             />
             <Stack.Screen name="(edit-task)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(create-item)"
+              options={{ headerShown: false }}
+            />
             <Stack.Screen name="+not-found" />
           </Stack>
         </ThemeProvider>
