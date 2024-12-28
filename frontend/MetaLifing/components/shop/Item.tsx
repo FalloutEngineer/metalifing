@@ -2,19 +2,26 @@ import React, { Fragment, ReactElement, ReactNode } from "react"
 import { View, Text, StyleSheet } from "react-native"
 import ItemButton from "./ItemButton"
 import Coins from "../Coins"
+import { Rarities } from "@/constants/Rarities"
+import { useRarityColor } from "@/hooks/useRarityColor"
 
 export default function Item(props: {
   price: number
   amount?: number
+  rarity?: Rarities
   name: string
   fontSize: number
   buttons: ReactElement<typeof ItemButton> | ReactElement<typeof ItemButton>[]
 }) {
+  const rarityColor = useRarityColor(props.rarity || Rarities.COMMON)
+
   const styles = StyleSheet.create({
     item: {
       display: "flex",
       flexGrow: 1,
       flex: 1,
+
+      overflow: "hidden",
 
       width: "100%",
       height: "100%",
@@ -31,8 +38,6 @@ export default function Item(props: {
       shadowOpacity: 0.17,
       shadowRadius: 3.05,
       elevation: 4,
-
-      padding: 5,
     },
     header: {
       flex: 2,
@@ -74,24 +79,41 @@ export default function Item(props: {
     amount: {
       fontSize: 18,
     },
+    rarity: {
+      height: 5,
+      width: "100%",
+    },
+    wrapper: {
+      paddingHorizontal: 5,
+      paddingBottom: 5,
+      display: "flex",
+      flexGrow: 1,
+      flex: 1,
+
+      width: "100%",
+      height: "100%",
+    },
   })
 
   return (
     <View style={styles.item}>
-      <View style={styles.header}>
-        <Text style={styles.amount}>x{props.amount ? props.amount : 0}</Text>
-      </View>
-      <View style={styles.body}>
-        <Text style={styles.text}>{props.name}</Text>
-      </View>
-      <View style={styles.lower}>
-        <Coins coins={props.price} fontSize={18} />
-        <View style={styles.buttons}>
-          {Array.isArray(props.buttons)
-            ? props.buttons.map((child, index) => (
-                <Fragment key={index}>{child}</Fragment>
-              ))
-            : props.buttons}
+      <View style={[styles.rarity, { backgroundColor: rarityColor }]}></View>
+      <View style={styles.wrapper}>
+        <View style={styles.header}>
+          <Text style={styles.amount}>x{props.amount ? props.amount : 0}</Text>
+        </View>
+        <View style={styles.body}>
+          <Text style={styles.text}>{props.name}</Text>
+        </View>
+        <View style={styles.lower}>
+          <Coins coins={props.price} fontSize={18} />
+          <View style={styles.buttons}>
+            {Array.isArray(props.buttons)
+              ? props.buttons.map((child, index) => (
+                  <Fragment key={index}>{child}</Fragment>
+                ))
+              : props.buttons}
+          </View>
         </View>
       </View>
     </View>

@@ -30,6 +30,12 @@ export const Colors = {
       medium: "#E68D3C",
       high: "red",
     },
+    rarities: {
+      common: "green",
+      uncommon: "blue",
+      rare: "violet",
+      legendary: "golden",
+    },
   },
   light: {
     text: "#11181C",
