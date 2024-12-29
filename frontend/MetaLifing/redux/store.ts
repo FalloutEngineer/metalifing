@@ -6,6 +6,7 @@ import { persistReducer } from "redux-persist"
 import persistStore from "redux-persist/es/persistStore"
 import coinsReducer from "./slices/coins"
 import taskFilterReducer from "./slices/filterState"
+import itemsReducer from "./slices/items"
 
 const persistConfig = {
   key: "todos",
@@ -17,11 +18,17 @@ const persistCoinsConfig = {
   storage: AsyncStorage,
 }
 
+const persistItemsConfig = {
+  key: "items",
+  storage: AsyncStorage,
+}
+
 const rootReducer = combineReducers({
   todos: persistReducer(persistConfig, taskReducer),
   createTodo: createTodoReducer,
   coins: persistReducer(persistCoinsConfig, coinsReducer),
   taskFilter: taskFilterReducer,
+  items: persistReducer(persistItemsConfig, itemsReducer),
 })
 
 const store = configureStore({

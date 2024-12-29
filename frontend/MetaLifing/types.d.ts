@@ -1,6 +1,7 @@
 import { TagType } from "./components/ui/TagStyles"
 import { Difficulties, Priorities } from "./constants/TaskAttributes"
 import { Colors } from "./Colors"
+import { Rarities } from "./constants/Rarities"
 
 type TaskFields = {
   id: TaskId
@@ -56,3 +57,20 @@ type FilterState = {
 }
 
 type TaskFilter = number
+
+type Item = {
+  id: string
+  name: string
+  amount: number
+  price: number
+  rarity: Rarities
+}
+
+type ItemStoreState = {
+  inventory: Item[]
+}
+
+type ItemAmountPayload = {
+  id: string
+  amount: number
+}
