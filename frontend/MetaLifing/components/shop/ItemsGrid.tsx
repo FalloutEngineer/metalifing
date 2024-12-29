@@ -13,7 +13,7 @@ export default function ItemsGrid(props: { children: ReactNode[] }) {
       }}
       columnWrapperStyle={{
         display: "flex",
-        justifyContent: "space-between",
+        gap: "2%",
         width: "100%",
 
         marginBottom: "2%",

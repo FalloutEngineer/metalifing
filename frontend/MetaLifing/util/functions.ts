@@ -1,3 +1,5 @@
+import { Rarities } from "@/constants/Rarities"
+
 export function getDateFromString(date: string): Date {
   return new Date(date.split("/").join("-"))
 }
@@ -21,5 +23,31 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
     timeoutId = setTimeout(() => {
       func(...args)
     }, delay)
+  }
+}
+
+export const getRarityNumber = (rarity: Rarities): number => {
+  switch (rarity) {
+    case Rarities.COMMON:
+      return 0
+    case Rarities.UNCOMMON:
+      return 1
+    case Rarities.RARE:
+      return 2
+    case Rarities.LEGENDARY:
+      return 3
+  }
+}
+
+export const getRarityFromNumber = (rarity: number): Rarities => {
+  switch (rarity) {
+    case 1:
+      return Rarities.UNCOMMON
+    case 2:
+      return Rarities.RARE
+    case 3:
+      return Rarities.LEGENDARY
+    default:
+      return Rarities.COMMON
   }
 }

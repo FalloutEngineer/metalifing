@@ -34,7 +34,7 @@ export const Colors = {
       common: "green",
       uncommon: "blue",
       rare: "violet",
-      legendary: "golden",
+      legendary: "yellow",
     },
   },
   light: {

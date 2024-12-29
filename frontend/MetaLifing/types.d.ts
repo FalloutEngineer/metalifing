@@ -22,15 +22,22 @@ interface TodoInitialState {
 
 type TaskFormCallback = (task: TaskFields) => any
 
-type GlobalStateCallback = (task: TaskFields) => any
+type GlobalStateTasksCallback = (task: TaskFields) => any
+
+type ItemFormCallback = (item: Item) => any
+
+type GlobalStateFormCallback = (item: Item) => any
 
 type DoneCallback = () => any
 
-type TaskFormProps = Partial<TaskFields> & {
+type FormProps<A, B> = {
   buttonName: string
-  buttonCallback: TaskFormCallback
-  globalStateCallback?: GlobalStateCallback
+  buttonCallback: A
+  globalStateCallback?: B
 }
+
+type TaskFormProps = Partial<TaskFields> &
+  FormProps<TaskFormCallback, GlobalStateTasksCallback>
 
 type TaskId = string
 
@@ -74,3 +81,6 @@ type ItemAmountPayload = {
   id: string
   amount: number
 }
+
+type ItemFormProps = Partial<Item> &
+  FormProps<ItemFormCallback, GlobalStateFormCallback>

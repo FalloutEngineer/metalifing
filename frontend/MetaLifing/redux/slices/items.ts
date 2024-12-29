@@ -1,8 +1,45 @@
+import { Rarities } from "@/constants/Rarities"
 import { Item, ItemAmountPayload, ItemStoreState } from "@/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: ItemStoreState = {
-  inventory: [],
+  inventory: [
+    {
+      id: "1",
+      name: "Healing potion",
+      amount: 0,
+      price: 10,
+      rarity: Rarities.COMMON,
+    },
+    {
+      id: "2",
+      name: "Mana potion",
+      amount: 0,
+      price: 15,
+      rarity: Rarities.COMMON,
+    },
+    {
+      id: "3",
+      name: "Speed potion",
+      amount: 0,
+      price: 20,
+      rarity: Rarities.COMMON,
+    },
+    {
+      id: "4",
+      name: "Invisibility potion",
+      amount: 0,
+      price: 100,
+      rarity: Rarities.COMMON,
+    },
+    {
+      id: "5",
+      name: "Iron armor",
+      amount: 0,
+      price: 500,
+      rarity: Rarities.RARE,
+    },
+  ],
 }
 
 const itemsSlice = createSlice({
@@ -18,8 +55,12 @@ const itemsSlice = createSlice({
       )
 
       if (index !== -1) {
-        state.inventory[index].amount =
-          state.inventory[index].amount + action.payload.amount
+        if (state.inventory[index].amount + action.payload.amount < 0) {
+          state.inventory[index].amount = 0
+        } else {
+          state.inventory[index].amount =
+            state.inventory[index].amount + action.payload.amount
+        }
       }
     },
     updateItem: (state, action: PayloadAction<Item>) => {
