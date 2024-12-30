@@ -8,6 +8,8 @@ import coinsReducer from "./slices/coins"
 import taskFilterReducer from "./slices/filterState"
 import itemsReducer from "./slices/items"
 
+import createItemReducer from "./slices/createItem"
+
 const persistConfig = {
   key: "todos",
   storage: AsyncStorage,
@@ -29,6 +31,7 @@ const rootReducer = combineReducers({
   coins: persistReducer(persistCoinsConfig, coinsReducer),
   taskFilter: taskFilterReducer,
   items: persistReducer(persistItemsConfig, itemsReducer),
+  createItem: createItemReducer,
 })
 
 const store = configureStore({

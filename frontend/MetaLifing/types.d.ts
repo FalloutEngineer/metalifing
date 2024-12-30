@@ -72,7 +72,6 @@ type Item = {
   price: number
   rarity: Rarities
 }
-
 type ItemStoreState = {
   inventory: Item[]
 }
