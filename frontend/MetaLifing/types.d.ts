@@ -71,6 +71,7 @@ type Item = {
   amount: number
   price: number
   rarity: Rarities
+  createdBySystem?: boolean
 }
 type ItemStoreState = {
   inventory: Item[]

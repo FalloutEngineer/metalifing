@@ -1,5 +1,5 @@
 import { LayoutStyles } from "@/styles/layout"
-import { Item, ItemFormProps, TaskFields, TaskFormProps } from "@/types"
+import { Item, ItemFormProps } from "@/types"
 import React, { useCallback, useState } from "react"
 import {
   View,
@@ -11,59 +11,45 @@ import {
   useColorScheme,
 } from "react-native"
 import Selector from "../ui/Selector"
-import Tag from "../ui/Tag"
 import { Colors } from "@/constants/Colors"
-import { TagType } from "../ui/TagStyles"
 import { Ionicons } from "@expo/vector-icons"
-import TimePicker from "../ui/TimePicker"
-import DatePicker from "../ui/DatePicker"
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker"
 import {
   debounce,
-  getDateFromString,
   getRarityFromNumber,
   getRarityNumber,
 } from "@/util/functions"
-import { Difficulties, Priorities } from "@/constants/TaskAttributes"
-import { Tags } from "@/constants/Tags"
 import { Rarities } from "@/constants/Rarities"
 import RarityItem from "../ui/RarityItem"
 
 export default function ItemForm(props: ItemFormProps) {
   const [item, setItem] = useState<Item>({
-    id: props.id || "0",
-    name: props.name || "test",
+    id: props.id || new Date().toString(),
+    name: props.name || "",
     amount: props.amount || 0,
-    price: props.price || 1,
+    price: props.price || 0,
     rarity: props.rarity || Rarities.COMMON,
   })
 
+  console.log(item)
+
   const [validationErrors, setValidationErrors] = useState({
     name: false,
-    description: false,
   })
 
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false)
-  const [datePickerMode, setDatePickerMode] = useState<"time" | "date">("date")
+  const tryValidateForm = () => {
+    const nameValidation = item.name === ""
 
-  //   const tryValidateForm = () => {
-  //     const nameValidation = task.name === ""
-  //     const descriptionValidation = task.description === ""
+    const newValidationErrors = {
+      name: nameValidation,
+    }
+    setValidationErrors(newValidationErrors)
 
-  //     const newValidationErrors = {
-  //       name: nameValidation,
-  //       description: descriptionValidation,
-  //     }
-  //     setValidationErrors(newValidationErrors)
-
-  //     return nameValidation || descriptionValidation
-  //   }
+    return nameValidation
+  }
 
   const handleFormChange = (
     field: string,
-    value: string | number | Difficulties | Priorities
+    value: string | number | Rarities
   ) => {
     const updatedForm = { ...item, [field]: value }
     setItem(updatedForm)
@@ -77,27 +63,26 @@ export default function ItemForm(props: ItemFormProps) {
     [JSON.stringify(item)]
   )
 
-  const tagChangeHandler = (name: string, color: typeof Colors) => {
-    const updatedForm = { ...item, tag: name, tagColor: color }
+  const selectChangeHandler = (name: string, value: Rarities) => {
+    const updatedForm = { ...item, [name]: value }
     setItem(updatedForm)
     if (props.globalStateCallback) {
       props.globalStateCallback(updatedForm)
     }
   }
 
-  const debouncedTagChangeHandler = useCallback(
-    debounce(tagChangeHandler, 500),
+  const debouncedSelectChangeHandler = useCallback(
+    debounce(selectChangeHandler, 50),
     [JSON.stringify(item)]
   )
 
   const colorScheme = useColorScheme()
 
   const sumbitButtonPressEvent = () => {
-    // const validationUnsuccessfull = tryValidateForm()
-    // if (!validationUnsuccessfull) {
-    //   props.buttonCallback(task)
-    // }
-    console.log("test")
+    const validationUnsuccessfull = tryValidateForm()
+    if (!validationUnsuccessfull) {
+      props.buttonCallback(item)
+    }
   }
 
   return (
@@ -133,17 +118,12 @@ export default function ItemForm(props: ItemFormProps) {
               itemStyles={{ borderRadius: 0 }}
               defaultValue={props.rarity ? getRarityNumber(props.rarity) : 0}
               onChange={(index: number) => {
-                const indexString = index.toString()
+                const rarityFromNumber = getRarityFromNumber(index)
 
                 if (
-                  Object.values(Difficulties).includes(
-                    index.toString() as Difficulties
-                  )
+                  Object.values(Rarities).includes(rarityFromNumber as Rarities)
                 )
-                  debouncedFormChangeHandler(
-                    "rarity",
-                    getRarityFromNumber(index)
-                  )
+                  debouncedSelectChangeHandler("rarity", rarityFromNumber)
               }}
               items={[
                 <RarityItem rarityValue={Rarities.COMMON} />,

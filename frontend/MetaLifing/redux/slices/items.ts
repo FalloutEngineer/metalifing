@@ -10,6 +10,7 @@ const initialState: ItemStoreState = {
       amount: 0,
       price: 10,
       rarity: Rarities.COMMON,
+      createdBySystem: true,
     },
     {
       id: "2",
@@ -17,6 +18,7 @@ const initialState: ItemStoreState = {
       amount: 0,
       price: 15,
       rarity: Rarities.COMMON,
+      createdBySystem: true,
     },
     {
       id: "3",
@@ -24,6 +26,7 @@ const initialState: ItemStoreState = {
       amount: 0,
       price: 20,
       rarity: Rarities.COMMON,
+      createdBySystem: true,
     },
     {
       id: "4",
@@ -31,6 +34,7 @@ const initialState: ItemStoreState = {
       amount: 0,
       price: 100,
       rarity: Rarities.COMMON,
+      createdBySystem: true,
     },
     {
       id: "5",
@@ -38,6 +42,7 @@ const initialState: ItemStoreState = {
       amount: 0,
       price: 500,
       rarity: Rarities.RARE,
+      createdBySystem: true,
     },
   ],
 }
@@ -72,9 +77,15 @@ const itemsSlice = createSlice({
         state.inventory[index] = { ...action.payload }
       }
     },
+    deleteItem: (state, action: PayloadAction<Item>) => {
+      state.inventory = state.inventory.filter((item) => {
+        return item.createdBySystem || item.id !== action.payload.id
+      })
+    },
   },
 })
 
-export const { addItem, changeAmountBy, updateItem } = itemsSlice.actions
+export const { addItem, changeAmountBy, updateItem, deleteItem } =
+  itemsSlice.actions
 
 export default itemsSlice.reducer

@@ -10,7 +10,7 @@ import ItemButton from "@/components/shop/ItemButton"
 import Item from "@/components/shop/Item"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
-import { changeAmountBy } from "@/redux/slices/items"
+import { changeAmountBy, deleteItem } from "@/redux/slices/items"
 import { subtractCoins } from "@/redux/slices/coins"
 import { ToastAndroid } from "react-native"
 
@@ -30,6 +30,7 @@ export default function Shop() {
               {items.map((item) => (
                 <Item
                   fontSize={16}
+                  deleteCallback={() => dispatch(deleteItem(item))}
                   buttons={
                     <ItemButton
                       callback={() => {

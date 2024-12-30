@@ -4,7 +4,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const defaultItem: Item = {
   id: "",
-  name: "test",
+  name: "",
   amount: 0,
   price: 0,
   rarity: Rarities.COMMON,

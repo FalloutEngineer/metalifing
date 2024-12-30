@@ -1,17 +1,21 @@
-import React, { Fragment, ReactElement, ReactNode } from "react"
+import React, { Fragment, ReactElement } from "react"
 import { View, Text, StyleSheet } from "react-native"
 import ItemButton from "./ItemButton"
 import Coins from "../Coins"
 import { Rarities } from "@/constants/Rarities"
 import { useRarityColor } from "@/hooks/useRarityColor"
+import DeleteBtn from "../ui/DeleteBtn"
 
 export default function Item(props: {
+  id: string
   price: number
   amount?: number
   rarity?: Rarities
   name: string
   fontSize: number
   buttons: ReactElement<typeof ItemButton> | ReactElement<typeof ItemButton>[]
+  createdBySystem?: boolean
+  deleteCallback?: Function
 }) {
   const rarityColor = useRarityColor(props.rarity || Rarities.COMMON)
 
@@ -40,12 +44,14 @@ export default function Item(props: {
       elevation: 4,
     },
     header: {
-      flex: 2,
+      flex: 1.5,
 
       width: "100%",
-      justifyContent: "center",
-      alignItems: "flex-end",
+      justifyContent: "space-between",
+      alignItems: "center",
       display: "flex",
+
+      flexDirection: "row",
     },
     body: {
       flex: 3,
@@ -100,6 +106,17 @@ export default function Item(props: {
       <View style={[styles.rarity, { backgroundColor: rarityColor }]}></View>
       <View style={styles.wrapper}>
         <View style={styles.header}>
+          <Text>
+            {props.createdBySystem ? null : (
+              <DeleteBtn
+                deleteCallback={() => {
+                  if (props.deleteCallback) {
+                    props.deleteCallback(props.id)
+                  }
+                }}
+              />
+            )}
+          </Text>
           <Text style={styles.amount}>x{props.amount ? props.amount : 0}</Text>
         </View>
         <View style={styles.body}>
